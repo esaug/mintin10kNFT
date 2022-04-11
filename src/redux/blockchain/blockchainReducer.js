@@ -6,7 +6,6 @@ const initialState = {
     loading: false,
     account: null,
     NftContract: null,
-    web3: null,
     errorMsg: "",
   };
   

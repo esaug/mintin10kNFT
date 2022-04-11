@@ -9,9 +9,7 @@ import store from '../src/redux/store'
 import {useSelector} from 'react-redux'
 
 function App(props) {
-    const data = useSelector(state => {
-      console.log(state.blockchain)
-    })
+    
   
   return (
       

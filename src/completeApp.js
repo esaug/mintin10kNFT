@@ -9,7 +9,12 @@ import FAQ from "./components/FAQ"
 import RoadMap from "./components/RoadMap"
 import PreFooter from "./components/PreFooter"
 
+
 export default function completeApp() {
+
+
+
+
   return (
     <div className='bg-black'>
         <Navbar/>

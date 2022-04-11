@@ -1,13 +1,11 @@
-import React from "react"
+import React, {useEffect} from "react"
 import lipsMid from "../images/lipsMid.png"
 import { useNavigate } from "react-router-dom"
 //import { useNavigate } from "react-router-dom"
-import getData from "./myNFT"
-import {ethers} from "ethers"
-import {useState} from "react"
 import store from "../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import { conexion } from "../redux/blockchain/blockchainActions";
+import { conexion, updateAccount } from "../redux/blockchain/blockchainActions";
+import { fetchData } from "../redux/data/dataActions"
 
 const openSea = 'https://testnets.opensea.io/0xece6ffff5ad61a2dc2e2dcf94a46554c0933d549'
 
@@ -21,20 +19,41 @@ export default function Navbar() {
 
     //dispatch 
 
-    const dispatch = useDispatch()
+   const dispatch = useDispatch()
     
+
     //Conectar billetera 
 
     const navigate = useNavigate()
 
+    
+
+    
     const connect = async ()=>{
 
 
       dispatch(conexion())
-       navigate("/mynft")
-       
-    }     
 
+      
+      // COMPROBANDO LOGIN
+
+
+      if(store.getState().blockchain.loading == true){
+        console.log("Loading")
+    
+        navigate("/mynft")
+      }
+      else{
+          console.log('INSTALA METAMASK')
+      }
+    }
+    
+    
+    
+
+    //REDIRECION DESPUES QUE CARGA LA STORE
+
+    
     const handleClick = () => {
         window.location.href = openSea
     }

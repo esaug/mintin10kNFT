@@ -4,7 +4,7 @@ import { fetchData } from "../data/dataActions.js"
 
 
 const contractAddress = '0x57bAF850e783Efd504572e9B0dB8bcc705f3C81e'
-
+const seed = 'detect relief daughter weird artwork pelican want victory guess layer acid detail'
 // FUNCIONES QUE ACTUALIZAN EL ESTADO
 
 const conexionRequest = () => {
@@ -52,20 +52,18 @@ const conexionRequest = () => {
                 const account = await window.ethereum.request({
                 method: "eth_requestAccounts"
                 })
-
                 const networkId = await window.ethereum.request({
                 method: "net_version"
                 }) 
 
                 // GET CONTRATO 
+                
+                
+                const Provider = await new ethers.providers.Web3Provider(window.ethereum)
+                const signer = await Provider.getSigner()
+                const NftContract = await new ethers.Contract(contractAddress, ContractNFT, signer)
 
-                const contProvider = new ethers.providers.Web3Provider(window.ethereum)
-                const providerSigner = contProvider.getSigner()
-                const NftContract = new ethers.Contract(contractAddress, ContractNFT, contProvider)
-
-                console.log(NftContract)
                 console.log(networkId)
-
         
                 if(networkId == 4){
 
@@ -75,26 +73,28 @@ const conexionRequest = () => {
           
                         account: account[0],
                         NftContract: NftContract,
-                        web3: ethers
               
                     }))
 
-                    fetchData(dispatch)
-                    //UPDATE
-                    dispatch(updateAccount(account[0]))
+                    fetchData(account)
+
+                   // Add listeners start
+                     window.ethereum.on("accountsChanged", (accounts) => {
+                        dispatch(updateAccount(account[0]));
+                     });
+                    window.ethereum.on("chainChanged", () => {
+                      window.location.reload();
+                     });
+                      // Add listeners end
+
                 } 
-
-
             } else {
                 dispatch(conexionFallida("Worng network"));
             }
-
         } catch (error) {
              dispatch(conexionFallida("Metamask is not installed."))
          }
-
     }      
-    
 }
     //update 
       
@@ -103,8 +103,7 @@ export const updateAccount = (account) => {
     return async (dispatch) => {
             
             dispatch(updateAccountRequest({ account: account }));
-            dispatch(fetchData(account));
-            
+            //dispatch(fetchData(account));
         };
       };
         

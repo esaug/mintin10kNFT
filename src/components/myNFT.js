@@ -1,59 +1,82 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { fetchData } from '../redux/data/dataActions'
-
-
-import store from '../redux/store'
+import {ethers} from 'ethers'
+import { updateAccount, conexion } from '../redux/blockchain/blockchainActions'
+import NftRender from './nftRender'
 import {useSelector, useDispatch} from "react-redux"
+
 
 
 export default function MyNFT() {
 
+  const [datos, setDatos] = useState([]) 
+
   const dispatch = useDispatch()
 
-  // Guardando los datos de la STORE en su lugar correspondiente 
-
-  const blockchain = useSelector((store)=>  store.blockchain)
+  const blockchain = useSelector((store)=> store.blockchain)
   const data = useSelector((store) => store.data)
 
-  console.log('Estoy en NFT')
-  console.log('DATa BLOCKCHAIN')
-  console.log(blockchain)
-  console.log('DATA')
-  console.log(data)
-  console.log('Estoy saliendo de NFT')
+   console.log(blockchain)
+   console.log(data)
 
-  //Actualizador 
+  // DETECTAR CUANDO RECARGAN PAGINA 
 
-  useEffect(()=>{
-    
-    if(blockchain.account != "" || blockchain.NftContract != null){
-      dispatch(fetchData(blockchain.account))
-     console.log('ACTUALIZANDO COMPA!')
-      
-    }
-  },[blockchain])
+  window.addEventListener('load', ()=>{
+    dispatch(conexion())
+    console.log('PAGINA RECARGADA')
+  })
+
+  console.log('PROBANDOO NFT')
+  console.log(data.allNFTs)
+
+
+  //Minting NFT 
+
+  const minter = async(_account, amount)=>{
+
+  const options = {
+    from: _account,
+    value: ethers.utils.parseEther("0.0002")
+  }
+
+  const Provider = new ethers.providers.Web3Provider(window.ethereum)
+  const signer = Provider.getSigner()
+ 
+   const tx = await blockchain.NftContract.connect(signer).mint(amount, options)
+   await tx.wait()
+   console.log(tx)
+
+  
+  }
+
+ 
+
 
   return (
     <>
       <div className='flex place-items-stretch'>
           <div className='w-1/6'></div>
           <div className='w-1/2 text-center'>
-              {}
             <div>
-                <p>ACCOUNT: {data.account}</p>
+                <p>ACCOUNT: {blockchain.account}</p>
             </div>
             <div className="  md:order-2">
-                                 <button onClick ={()=>{}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                 <button onClick ={(e)=>{
+                                    e.preventDefault()
+                                    minter(blockchain.account, 1)
+                                 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                      MINT NOW!
                                 </button>
                        
             </div>
             <div>
-                <p>YOUR NFT</p>
+             <NftRender/>
             </div>
+        
           </div>
           <div className='w-1/6'></div>
       </div>
     </>
   )
 }
+

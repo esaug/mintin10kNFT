@@ -38,31 +38,27 @@ export const fetchData = (account) => {
         //FETCH OPEN SEA
         
         let nom
-        let nom2 =[]
+        let nom2 = []
         
         const gettingData = async (_account)=>{
           const options = {method: 'GET'};
   
-           const response = await fetch('https://testnets-api.opensea.io/api/v1/assets?owner=0xece6fFFF5Ad61A2dC2e2DcF94a46554c0933d549&order_direction=desc&offset=0&limit=20', options)
-           const resp = await response.json()
-           nom = resp
-           console.log(nom.assets)
-           console.log('SALIENDO YUPI')
-           for(let i = 0; i < nom.assets.length; i++ ){
-             nom2.push(nom.assets[i])
-           }
-    
-           
-          
+           fetch(`https://testnets-api.opensea.io/api/v1/assets?owner=${_account}&order_direction=desc&offset=0&limit=150`, options)
+           .then(response => response.json()) 
+           .then(response => nom = response)
+           .then(nom => {
+            for(let i = 0; i < nom.assets.length; i++ ){
+              nom2.push(nom[i])
+            }
+           })
         }
 
 
-        gettingData()
+        gettingData(account)
+
+        console.log('DEntro de data')
+        console.log(nom2)
   
-        
-        console.log('ALLNFTS! NOJODAS')
-        console.log(nom2) 
-        
         // Enviar Fetch a STORE
         dispatch(
           fetchDataExitoso({
@@ -70,16 +66,13 @@ export const fetchData = (account) => {
           })
         ) 
 
+
     } catch (error) {
 
         dispatch(fetchDataFallido("Could not load data from contract."));
 
     }
-
-
-  }
-      
-      
+  } 
 }
 
 
