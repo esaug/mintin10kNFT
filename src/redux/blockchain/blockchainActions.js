@@ -59,9 +59,9 @@ const conexionRequest = () => {
                 // GET CONTRATO 
                 
                 
-                const Provider = await new ethers.providers.Web3Provider(window.ethereum)
-                const signer = await Provider.getSigner()
-                const NftContract = await new ethers.Contract(contractAddress, ContractNFT, signer)
+                const Provider = new ethers.providers.Web3Provider(window.ethereum)
+                const signer = Provider.getSigner()
+                const NftContract = new ethers.Contract(contractAddress, ContractNFT, signer)
 
                 console.log(networkId)
         
@@ -73,20 +73,13 @@ const conexionRequest = () => {
           
                         account: account[0],
                         NftContract: NftContract,
+                        web3: ethers
               
                     }))
 
-                    fetchData(account)
-
-                   // Add listeners start
-                     window.ethereum.on("accountsChanged", (accounts) => {
-                        dispatch(updateAccount(account[0]));
-                     });
-                    window.ethereum.on("chainChanged", () => {
-                      window.location.reload();
-                     });
-                      // Add listeners end
-
+                    fetchData(dispatch)
+                    //UPDATE
+                    dispatch(updateAccount(account[0]))
                 } 
             } else {
                 dispatch(conexionFallida("Worng network"));
@@ -103,7 +96,7 @@ export const updateAccount = (account) => {
     return async (dispatch) => {
             
             dispatch(updateAccountRequest({ account: account }));
-            //dispatch(fetchData(account));
+            dispatch(fetchData(account));
         };
       };
         

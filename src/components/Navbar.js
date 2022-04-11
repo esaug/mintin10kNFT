@@ -1,13 +1,15 @@
-import React, {useEffect} from "react"
+import React from "react"
 import lipsMid from "../images/lipsMid.png"
 import { useNavigate } from "react-router-dom"
 //import { useNavigate } from "react-router-dom"
+import getData from "./myNFT"
+import {ethers} from "ethers"
+import {useState} from "react"
 import store from "../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import { conexion, updateAccount } from "../redux/blockchain/blockchainActions";
-import { fetchData } from "../redux/data/dataActions"
+import { conexion } from "../redux/blockchain/blockchainActions";
 
-const openSea = 'https://testnets.opensea.io/0xece6ffff5ad61a2dc2e2dcf94a46554c0933d549'
+const openSea = 'https://testnets.opensea.io/collection/nftlips-v4'
 
 
 
@@ -17,76 +19,58 @@ const openSea = 'https://testnets.opensea.io/0xece6ffff5ad61a2dc2e2dcf94a46554c0
 
 export default function Navbar() {
 
+   
     //dispatch 
 
-   const dispatch = useDispatch()
+    const dispatch = useDispatch()
     
-
     //Conectar billetera 
 
     const navigate = useNavigate()
 
-    
-
-    
     const connect = async ()=>{
 
 
       dispatch(conexion())
+       navigate("/mynft")
+       
+    }     
 
-      
-      // COMPROBANDO LOGIN
-
-
-      if(store.getState().blockchain.loading == true){
-        console.log("Loading")
-    
-        navigate("/mynft")
-      }
-      else{
-          console.log('INSTALA METAMASK')
-      }
-    }
-    
-    
-    
-
-    //REDIRECION DESPUES QUE CARGA LA STORE
-
-    
     const handleClick = () => {
         window.location.href = openSea
     }
 
 
     return (
-            <div   className=" inline-block relative bg-black w-full ">
-                <div className="fixed
-                            w-full
-                            bg-black
-                            flex
-                            justify-between
-                            items-center
-                            px-4
-                            md:px-12
-                            transition-all
-                            duration-200
-                            h-24
-                            bg-opacity-30
-                            backdrop-filter backdrop-blur-lg
-                            firefox:bg-opacity-90
-                            ">
-                                
-                        <a href="">
+       
+        <div   className=" relative bg-black 
+        fixed
+        w-full
+        bg-black
+        flex
+        justify-between
+        items-center
+        transition-all
+        h-24
+        bg-opacity-30
+        backdrop-filter 
+        backdrop-blur-lg
+        firefox:bg-opacity-90
+        ">
+                <a href="">
                             <img 
                                 src={lipsMid}
                                 alt=""
-                                className="h-10"
+                                className="h-10 pl-10"
                             />
                         </a>
-                
-                        <nav className="backdrop-filter backdrop-blur-lg ">
-                            <button className="md:hidden" >
+
+                        <button      className=" text-3x1
+                        cursor-pointer
+                        mx-2
+                        md:hidden
+                        block
+                        " >
                                 <svg 
                                     xmlns="http://www.w3.org/2000/svg" 
                                     className="h-8 w-8 text-white " 
@@ -103,60 +87,124 @@ export default function Navbar() {
                                 </svg>
                             </button>
 
-                        <ul className=" fixed 
-                                    left-0 
-                                    right-0 
-                                    min-h-screen 
-                                    text-white 
-                                    space-y-4
-                                    p-4
-                                    transform 
-                                    translate-x-full
-                                    md:relative
-                                    md:flex md:min-h-0 md:space-y-0 md:space-x-6 md:p-0
-                                    md:translate-x-0
+                        <nav className="backdrop-filter backdrop-blur-lg">
+            
+
+                        <ul className=" md:flex
+                        md:items-center z-[-1]
+                        med:z-auto 
+                        md:static 
+                        absolute
+                        bg-black
+                        w-full
+                        left-0
+                        md-auto
+                        text-white
+                        md:w-auto
+                        md:py-0
+                        py-4
+                        md:pl-0
+                        pl-7
+                        md:opacity-100 
+                        opacity-0
+                        top-[-400px]
+                        transition-all
+                        ease-in
+                        duration-500
+                        md:mr-10
+
                                     ">
-                            <li>
-                                <a href="" >Home</a>
+                            <li className="mx-4 my-6 md-my-0 md:mx-2">
+                                <p className="text-x1
+                                hover:text-cyan-500
+                                duration-500
+                                md:text-sm
+                                lg:text-lg
+                                "><a href="" >Home</a></p>
                             </li>
-                            <li>
-                                <a href="">The Vision</a>
+                            <li className="mx-4 my-6 md-my-0 md:mx-2">
+                                <p className="text-x1
+                                hover:text-cyan-500
+                                duration-500
+                                md:text-sm
+                                lg:text-lg
+                                "><a href="">The Vision</a></p>
                             </li>
-                            <li>
-                                <a href="">RoadMap</a>
+                            <li className="mx-4 my-6 md-my-0 md:mx-2">
+                                <p className="text-x1
+                                hover:text-cyan-500
+                                duration-500
+                                md:text-sm
+                                lg:text-lg
+                                "><a href="">RoadMap</a></p>
                             </li>
-                            <li>
-                               
+                            <li className="mx-4 my-6 md-my-0 md:mx-2">
+                                 <p className="text-x1
+                                 hover:text-cyan-500
+                                 duration-500
+                                 md:text-sm
+                                 lg:text-lg
+                                 "><a href="">Whipapper</a></p>    
                             </li>
-                            <li>
-                                <a href="">FAQ</a>
+                            <li className="mx-4 my-6 md-my-0 md:mx-2">
+                                <p className="text-x1
+                                hover:text-cyan-500
+                                duration-500
+                                md:text-sm
+                                lg:text-lg
+                                "><a href="">FAQ</a></p>
                             </li>
-                            <li>    
-                                <a href="">Contact</a>
+                            <li className="mx-4  my-6 md-my-0 md:mx-2" >    
+                                <p className="text-x1
+                                hover:text-cyan-500
+                                duration-500
+                                md:text-sm
+                                lg:text-lg
+                                "><a href="">Contact</a></p>
                             </li>
-                            <li>
-                                <button onClick ={()=> handleClick()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
-                                    Open Sea
+                                <button onClick ={(e)=> {
+                                    e.preventDefault()
+                                    handleClick()
+                                }} className="
+                                bg-amber-500
+                                text-xs
+                                md:h-12 
+                                md:w-25  
+                                hover:bg-amber-600 text-white font-bold py-2 px-4 rounded
+                                " >
+                                    <p className="md:text-xs ">Open Sea</p>
                                 </button>
                                 
-                             </li>
-                             <li>
-                             <button onClick={(e)=> {
-                                 e.preventDefault()
-                                 connect()
+                                <button 
+                                    onClick={(e)=> {
+                                        e.preventDefault()
+                                        connect()
 
-                             }
+                                     }
                              
 
-                            } className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
-                                    Connect Metamask
+                                    } className="
+                                    bg-amber-500 
+                                    md:h-12 
+                                    md:w-25 
+                                    md:text-xs
+                                    text-center 
+                                    hover:bg-amber-600 text-white font-bold py-2 px-4 rounded
+                                    ml-5
+                                    
+                                    " >
+                                    <p className="">
+                                        Connect
+                                    </p>
+                                    <p className="">
+                                        Metamask
+                                    </p>
                                 </button>
-                             </li>
+                            
                         </ul>
                         </nav>
-                    
-                    </div>
-                 </div>        
+                       
+                 </div>       
 
            
     )

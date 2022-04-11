@@ -6,12 +6,12 @@ export default function RoadMap() {
         <div className="basis-1/8"></div>
         <div className="basis-full flex flex-col">
             <div className="text-center">
-                 <p className="text-5xl mb-5 pt-10"> ROAD MAP</p>
+                 <p className=" text-3xl md:text-5xl mb-5 pt-10"> ROAD MAP</p>
             </div>
            <div className=" text-center flex flex-row justify-around">
                 <div className=" text-center">
                         <div className="h-600 pb-10">
-                            <p>VACIO</p>
+                            <p></p>
                             <p></p>
                         </div>
                         <div className="h-600 mb-10 border-2 boder-white rounded-md">
@@ -23,7 +23,7 @@ export default function RoadMap() {
                                 </p>
                         </div>
                         <div className="h-600 pb-10">
-                            <p>VACIO</p>
+                            <p></p>
                             <p></p>
                         </div>
                         <div className="h-600 mb-10 border-2 border-white rounded-md">
@@ -36,7 +36,7 @@ export default function RoadMap() {
                         </div>
 
                         <div className="h-600 pb-10">
-                            <p>VACIO</p>
+                            <p></p>
                             <p></p>
                         </div>
                         <div className="h-600 mb-10 border-2 border-white rounded-md">
@@ -58,7 +58,7 @@ export default function RoadMap() {
                                 </p>
                             </div>
                         <div className="h-600 pb-10">
-                            <p>VACIO</p>
+                            <p></p>
                             <p></p>
                         </div>
                         <div className="h-450 mb-10 border-2 border-white rounded-md">
@@ -70,7 +70,7 @@ export default function RoadMap() {
                                 </p>
                         </div>
                         <div className="h-600 pb-10">
-                            <p>VACIO</p>
+                            <p></p>
                             <p></p>
                         </div>
 
@@ -83,7 +83,7 @@ export default function RoadMap() {
                                 </p>
                         </div>
                         <div className="h-600 pb-10">
-                            <p>VACIO</p>
+                            <p></p>
                             <p></p>
                         </div>
                 </div>

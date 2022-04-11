@@ -10,12 +10,12 @@ export default function Team() {
             <div className="text-center">
                  <p className="text-5xl mb-5 pt-10"> THE TEAM</p>
             </div>
-           <div className=" text-center flex flex-row justify-around pb-10 pt-10">
-                <div className="">
-                    <div>
+           <div className="  text-center md:flex md:flex-row md:justify-around pb-10 pt-10">
+                <div >
+                    <div className=" ">
                         <img src={lipsMid}/>
                     </div>  
-                    <div>
+                    <div className="pt-5">
                         <span>Nombre</span>
                     </div>
                     <div>
@@ -24,10 +24,21 @@ export default function Team() {
                     
                 </div>
                 <div>
-                    <div>
+                    <div className="">
                         <img src={lipsMid}/>
                     </div>  
+                    <div className="pt-5">
+                        <span >Nombre</span>
+                    </div>
                     <div>
+                        <span>CARGO</span>
+                    </div>
+                </div>
+                <div>
+                    <div >
+                        <img src={lipsMid}/>
+                    </div>  
+                    <div className="pt-5">
                         <span>Nombre</span>
                     </div>
                     <div>
@@ -35,21 +46,10 @@ export default function Team() {
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <img src={lipsMid}/>
-                    </div>  
-                    <div>
-                        <span>Nombre</span>
-                    </div>
-                    <div>
-                        <span>CARGO</span>
-                    </div>
-                </div>
-                <div>
                 <div>
                         <img src={lipsMid}/>
                     </div>  
-                    <div>
+                    <div className="pt-5">
                         <span>Nombre</span>
                     </div>
                     <div>
@@ -57,12 +57,12 @@ export default function Team() {
                     </div>
                 </div>
            </div>
-           <div className="text-center flex flex-row justify-around pb-10 pt-10">
+           <div className="text-center md:flex md:flex-row md:justify-around pb-10 pt-10">
                 <div>
                 <div>
                         <img src={lipsMid}/>
                     </div>  
-                    <div>
+                    <div className="pt-5">
                         <span>Nombre</span>
                     </div>
                     <div>
@@ -73,7 +73,7 @@ export default function Team() {
                 <div>
                         <img src={lipsMid}/>
                     </div>  
-                    <div>
+                    <div className="pt-5">
                         <span>Nombre</span>
                     </div>
                     <div>
@@ -84,7 +84,7 @@ export default function Team() {
                 <div>
                         <img src={lipsMid}/>
                     </div>  
-                    <div>
+                    <div className="pt-5">
                         <span>Nombre</span>
                     </div>
                     <div>
@@ -95,7 +95,7 @@ export default function Team() {
                 <div>
                         <img src={lipsMid}/>
                     </div>  
-                    <div>
+                    <div className="pt-5">
                         <span>Nombre</span>
                     </div>
                     <div>

@@ -1,23 +1,29 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import { fetchData } from '../redux/data/dataActions'
 import {ethers} from 'ethers'
 import { updateAccount, conexion } from '../redux/blockchain/blockchainActions'
-import NftRender from './nftRender'
+import NftView from './nftView'
+
+
+import store from '../redux/store'
 import {useSelector, useDispatch} from "react-redux"
 
 
+const PrivateKey = 'detect relief daughter weird artwork pelican want victory guess layer acid detail'
 
 export default function MyNFT() {
 
-  const [datos, setDatos] = useState([]) 
-
   const dispatch = useDispatch()
 
-  const blockchain = useSelector((store)=> store.blockchain)
+  // Guardando los datos de la STORE en su lugar correspondiente 
+
+  const blockchain = useSelector((store)=>  store.blockchain)
   const data = useSelector((store) => store.data)
 
-   console.log(blockchain)
-   console.log(data)
+  console.log(blockchain)
+  console.log(data)
+  console.log('TODOS LOS NFT')
+  console.log(data.allNFTs)
 
   // DETECTAR CUANDO RECARGAN PAGINA 
 
@@ -26,11 +32,6 @@ export default function MyNFT() {
     console.log('PAGINA RECARGADA')
   })
 
-  console.log('PROBANDOO NFT')
-  console.log(data.allNFTs)
-
-
-  //Minting NFT 
 
   const minter = async(_account, amount)=>{
 
@@ -44,23 +45,18 @@ export default function MyNFT() {
  
    const tx = await blockchain.NftContract.connect(signer).mint(amount, options)
    await tx.wait()
-   console.log(tx)
-
-  
   }
 
- 
-
-
   return (
-    <>
-      <div className='flex place-items-stretch'>
-          <div className='w-1/6'></div>
-          <div className='w-1/2 text-center'>
-            <div>
-                <p>ACCOUNT: {blockchain.account}</p>
+      <div className=' flex flex-row w-full place-items-stretch bg-black text-white  flex'>
+          <div className='basis-1/4'></div>
+          <div className=' flex flex-col basis-full text-center'>
+              {}
+            <div className='p-5'>
+                <p>ACCOUNT </p>
+                <p className='mt-10'>{blockchain.account}</p>
             </div>
-            <div className="  md:order-2">
+            <div className=" p- 5 mt-10">
                                  <button onClick ={(e)=>{
                                     e.preventDefault()
                                     minter(blockchain.account, 1)
@@ -69,14 +65,13 @@ export default function MyNFT() {
                                 </button>
                        
             </div>
-            <div>
-             <NftRender/>
+
+            <div className=' place-content-center bg-black text-white  flex'>
+                <NftView datos={data.allNFTs}/>
             </div>
-        
           </div>
-          <div className='w-1/6'></div>
+          <div className='basis-1/4'></div>
       </div>
-    </>
+  
   )
 }
-
